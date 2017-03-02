@@ -1,4 +1,11 @@
 # generator-gradle-kotlin
+
+**Current Fork Status**
+
+[![NPM version][npm-image]][npm-url-fork] [![Build Status][travis-image]][travis-url-fork] [![Dependencies Status][daviddm-image]][daviddm-url-fork] [![Dev Dependencies Status][daviddm-dev-image]][daviddm-dev-url-fork]
+
+**Original Status**
+
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependencies Status][daviddm-image]][daviddm-url] [![Dev Dependencies Status][daviddm-dev-image]][daviddm-dev-url]
 
 
@@ -56,3 +63,12 @@ MIT
 [daviddm-image]: https://david-dm.org/jcdenton/generator-gradle-kotlin.svg
 [daviddm-dev-url]: https://david-dm.org/jcdenton/generator-gradle-kotlin#info=devDependencies&view=list
 [daviddm-dev-image]: https://david-dm.org/jcdenton/generator-gradle-kotlin/dev-status.svg
+
+[npm-url-fork]: https://npmjs.org/package/generator-gradle-kotlin
+[npm-image-fork]: https://badge.fury.io/js/generator-gradle-kotlin.svg
+[travis-url-fork]: https://travis-ci.org/preslavrachev/generator-gradle-kotlin
+[travis-image-fork]: https://travis-ci.org/preslavrachev/generator-gradle-kotlin.svg?branch=master
+[daviddm-url-fork]: https://david-dm.org/preslavrachev/generator-gradle-kotlin#info=dependencies&view=list
+[daviddm-image-fork]: https://david-dm.org/preslavrachev/generator-gradle-kotlin.svg
+[daviddm-dev-url-fork]: https://david-dm.org/preslavrachev/generator-gradle-kotlin#info=devDependencies&view=list
+[daviddm-dev-image-fork]: https://david-dm.org/preslavrachev/generator-gradle-kotlin/dev-status.svg
