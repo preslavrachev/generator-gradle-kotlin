@@ -2,7 +2,7 @@
 
 path = require('path')
 assert = require('yeoman-generator').assert
-helpers = require('yeoman-generator').test
+helpers = require('yeoman-test')
 os = require('os')
 
 describe 'gradle-kotlin:app', ->
