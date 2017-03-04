@@ -134,13 +134,18 @@ class GradleKotlinGenerator extends YeomanGenerator {
   initializing() {
     let promise = new Promise((resolve, reject) => {
       setTimeout(() => { 
-        console.log('simulate some async activity...');
-        //resolve(); 
+        console.log('Initializing Step: Simulating some async activity...');
+        resolve(); 
       }, 200);
     });
 
     console.log('Initializing Step');
+    //return Promise.resolve(() => console.log('Initializing Step'));
     return promise;
+  }
+
+  end() {
+    console.log('End Step');    
   }
 }
 
