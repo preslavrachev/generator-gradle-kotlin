@@ -2,7 +2,7 @@
 
 **Current Fork Status**
 
-[![NPM version][npm-image]][npm-url-fork] [![Build Status][travis-image]][travis-url-fork] [![Dependencies Status][daviddm-image]][daviddm-url-fork] [![Dev Dependencies Status][daviddm-dev-image]][daviddm-dev-url-fork]
+[![NPM version][npm-image-fork]][npm-url-fork] [![Build Status][travis-image-fork]][travis-url-fork] [![Dependencies Status][daviddm-image-fork]][daviddm-url-fork] [![Dev Dependencies Status][daviddm-dev-image-fork]][daviddm-dev-url-fork]
 
 **Original Status**
 
