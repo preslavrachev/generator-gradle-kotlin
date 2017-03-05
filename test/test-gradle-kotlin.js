@@ -9,7 +9,9 @@ describe('gradle-kotlin:app', () => {
 
   before(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
-    .withOptions(skipInstall = true);
+    .withOptions({
+      skipInstall: true
+    });
   });
 
   it('creates Gradle files', () => {
