@@ -117,6 +117,10 @@ const MVNCNTRL_KOTLIN_SEARCH = 'http://search.maven.org/solrsearch/select?q=g:or
 class GradleKotlinGenerator extends YeomanGenerator {
   constructor(args, options, config) {
     super(args, options, config);
+
+    this.prompts = {
+      kotlinVersion: {}
+    }
   }
 
   /*
@@ -132,20 +136,32 @@ class GradleKotlinGenerator extends YeomanGenerator {
    */
 
   initializing() {
-    let promise = new Promise((resolve, reject) => {
-      setTimeout(() => { 
-        console.log('Initializing Step: Simulating some async activity...');
-        resolve(); 
-      }, 200);
-    });
-
     console.log('Initializing Step');
-    //return Promise.resolve(() => console.log('Initializing Step'));
-    return promise;
+    return this._fetchKotlinVersion();
+  }
+
+  /**
+   * Checks Maven Central for the latest Kotlin version. Defaults to the one specified by DEFAULT_KOTLIN_VERSION
+   * @returns {PromiseLike} a promise
+   */
+  _fetchKotlinVersion() {
+    console.log(chalk.gray('Fetching the latest Kotlin version form Maven Central'));
+
+    return request(MVNCNTRL_KOTLIN_SEARCH)
+      .then(response => {
+        let kotlinVersion = JSON.parse(response.body).response.docs[0].latestVersion;
+        console.log(chalk.green('Found latest Kotlin version: ' + kotlinVersion));
+        return Promise.resolve(kotlinVersion);
+      }).catch(error => {
+        console.log(chalk.green('An error occured while fetching the latest Kotling version! Defaulting to: : ' + DEFAULT_KOTLIN_VERSION));
+        return Promise.resolve(DEFAULT_KOTLIN_VERSION);        
+      }).then(kotlinVersion => {
+        this.prompts.kotlinVersion.default = kotlinVersion;
+      });
   }
 
   end() {
-    console.log('End Step');    
+    console.log('End Step');
   }
 }
 
