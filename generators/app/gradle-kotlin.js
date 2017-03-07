@@ -85,40 +85,12 @@ const MVNCNTRL_KOTLIN_SEARCH = 'http://search.maven.org/solrsearch/select?q=g:or
 // #   _getProjectName: ->
 // #     @prompts.projectName.default = @appname
 
-// #   _fetchGradleVersion: =>
-// #     @log chalk.gray '  Detecting installed Gradle version...'
-
-// #     exec('gradle --version')
-// #       .then (stdout) =>
-// #         gradleVersion = stdout.match(/^Gradle (\d+\.\d+)$/m)[1]
-// #         @log.ok chalk.green "Detected installed Gradle version: #{gradleVersion}"
-// #         Promise.resolve(gradleVersion)
-// #       .catch =>
-// #         @gradleNotInstalled = true
-// #         @log.error chalk.bgRed 'Could not detect Gradle installation. Please check the PATH variable.'
-// #         Promise.resolve(DEFAULT_GRADLE_VERSION)
-// #       .then (gradleVersion) =>
-// #         @prompts.gradleVersion.default = gradleVersion
-
-// #   _fetchKotlinVersion: =>
-// #     @log chalk.gray '  Fetching latest Kotlin version from Maven Central...'
-
-// #     request(MVNCNTRL_KOTLIN_SEARCH)
-// #       .then (response) =>
-// #         kotlinVersion = JSON.parse(response.body).response.docs[0].latestVersion
-// #         @log.ok chalk.green "Fetched latest Kotlin version: #{kotlinVersion}"
-// #         Promise.resolve(kotlinVersion)
-// #       .catch =>
-// #         @log.error chalk.bgRed 'Could not fetch latest Kotlin version from Maven Central.'
-// #         Promise.resolve(DEFAULT_KOTLIN_VERSION)
-// #       .then (kotlinVersion) =>
-// #         @prompts.kotlinVersion.default = kotlinVersion
-
 class GradleKotlinGenerator extends YeomanGenerator {
   constructor(args, options, config) {
     super(args, options, config);
 
     this.prompts = {
+      gradleVersion: {},
       kotlinVersion: {}
     }
   }
@@ -137,7 +109,25 @@ class GradleKotlinGenerator extends YeomanGenerator {
 
   initializing() {
     console.log('Initializing Step');
-    return this._fetchKotlinVersion();
+    return Promise.all([this._fetchGradleVersion(), this._fetchKotlinVersion()]);
+  }
+
+  /**
+   * Checks and fetches the version of the locally installed Gradle instance
+   * @returns {PromiseLike} a promise
+   */
+  _fetchGradleVersion() {
+    console.log(chalk.gray('Checking the Gradle version installed on your system'));
+    return exec('gradle --version').then(response => {
+      let gradleVersion = response.match(/^Gradle (\d+\.\d+)$/m)[1];
+      console.log(chalk.green(`Detected installed Gradle version: ${gradleVersion}`));
+      return Promise.resolve(gradleVersion);
+    }).catch(error => {
+      console.error(`An error occured while detecting the Gradle version. Defaulting to ${DEFAULT_GRADLE_VERSION}`);
+      return Promise.resolve(DEFAULT_GRADLE_VERSION);
+    }).then(gradleVersion => {
+      this.prompts.gradleVersion = gradleVersion;
+    })
   }
 
   /**
@@ -154,7 +144,7 @@ class GradleKotlinGenerator extends YeomanGenerator {
         return Promise.resolve(kotlinVersion);
       }).catch(error => {
         console.log(chalk.green('An error occured while fetching the latest Kotling version! Defaulting to: : ' + DEFAULT_KOTLIN_VERSION));
-        return Promise.resolve(DEFAULT_KOTLIN_VERSION);        
+        return Promise.resolve(DEFAULT_KOTLIN_VERSION);
       }).then(kotlinVersion => {
         this.prompts.kotlinVersion.default = kotlinVersion;
       });
