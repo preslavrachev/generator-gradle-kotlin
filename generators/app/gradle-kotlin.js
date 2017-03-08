@@ -126,7 +126,7 @@ class GradleKotlinGenerator extends YeomanGenerator {
       console.error(`An error occured while detecting the Gradle version. Defaulting to ${DEFAULT_GRADLE_VERSION}`);
       return Promise.resolve(DEFAULT_GRADLE_VERSION);
     }).then(gradleVersion => {
-      this.prompts.gradleVersion = gradleVersion;
+      this.prompts.gradleVersion.default = gradleVersion;
     })
   }
 
