@@ -9,7 +9,7 @@ let request = Promise.denodeify(require('request'))
 let exec = Promise.denodeify(require('child_process').exec)
 
 const DEFAULT_GRADLE_VERSION = '2.7'
-const DEFAULT_KOTLIN_VERSION = '0.14.451'
+const DEFAULT_KOTLIN_VERSION = '1.1.0'
 const MVNCNTRL_KOTLIN_SEARCH = 'http://search.maven.org/solrsearch/select?q=g:org.jetbrains.kotlin%20AND%20a:kotlin-stdlib&wt=json'
 
 // # class GradleKotlinGenerator extends yeoman.Base
@@ -90,8 +90,14 @@ class GradleKotlinGenerator extends YeomanGenerator {
     super(args, options, config);
 
     this.prompts = {
-      gradleVersion: {},
-      kotlinVersion: {}
+      gradleVersion: {
+        name: 'gradleVersion',
+        message: 'Which Gradle version does your project use?'
+      },
+      kotlinVersion: {
+        name: 'kotlinVersion',
+        message: 'Which Kotlin version does your project use?'
+      }
     }
   }
 
@@ -148,6 +154,13 @@ class GradleKotlinGenerator extends YeomanGenerator {
       }).then(kotlinVersion => {
         this.prompts.kotlinVersion.default = kotlinVersion;
       });
+  }
+
+  prompting() {
+    console.log('Prompting Step');
+    console.log(Object.values(this.prompts));
+    this.prompt(Object.values(this.prompts))
+      .then(props => this.props = props);
   }
 
   end() {
