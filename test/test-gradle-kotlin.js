@@ -22,7 +22,6 @@ describe('gradle-kotlin:app', () => {
       gradleVersion: '2.7',
       kotlinVersion: '1.1.0'
     });
-    });
   });
 
   it('creates Gradle files', () => {
