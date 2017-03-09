@@ -11,6 +11,10 @@ describe('gradle-kotlin:app', () => {
     return helpers.run(path.join(__dirname, '../generators/app'))
     .withOptions({
       skipInstall: true
+    }).withPrompts({
+      gradleVersion: '2.7',
+      kotlinVersion: '1.1.0'
+    });
     });
   });
 
