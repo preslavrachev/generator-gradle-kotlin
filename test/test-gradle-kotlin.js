@@ -1,14 +1,17 @@
 'use strict'
 
-let path = require('path')
-let helpers = require('yeoman-test')
-let assert = require('yeoman-assert')
-let os = require('os')
+let fs = require('fs-extra');
+
+let Generator = require(path.join(__dirname, '../generators/app'));
 
 describe('gradle-kotlin:app', () => {
 
   before(() => {
-    return helpers.run(path.join(__dirname, '../generators/app'))
+    return helpers.run(Generator)
+    .inTmpDir(dir => {
+      console.log(`Test Setup: Copying templates to ${dir}`)
+      fs.copySync(path.join(__dirname, '../generators/app/templates/'), path.join(dir, 'templates'));
+    })
     .withOptions({
       skipInstall: true
     }).withPrompts({
