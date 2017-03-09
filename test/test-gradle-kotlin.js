@@ -1,6 +1,10 @@
 'use strict'
 
+let path = require('path');
+let helpers = require('yeoman-test');
+let assert = require('yeoman-assert');
 let fs = require('fs-extra');
+let os = require('os');
 
 let Generator = require(path.join(__dirname, '../generators/app'));
 
