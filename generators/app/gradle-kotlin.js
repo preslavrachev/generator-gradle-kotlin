@@ -161,6 +161,18 @@ class GradleKotlinGenerator extends YeomanGenerator {
     return this.prompt(Object.values(this.prompts))
       .then(props => { this.props = props; });
   }
+
+  writing() {
+    console.log('Writing Step');
+    
+    let context = { props: this.props };
+
+    this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('gitkeep'), this.destinationPath('src/main/kotlin/.gitkeep'));
+    this.fs.copy(this.templatePath('gitkeep'), this.destinationPath('src/main/kotlin/.gitkeep'));
+    this.fs.copyTpl(this.templatePath('build.gradle.ejs'), this.destinationPath('build.gradle'), context);
+    this.fs.copyTpl(this.templatePath('gradle.properties.ejs'), this.destinationPath('gradle.properties'), context);
+    this.fs.copyTpl(this.templatePath('settings.gradle.ejs'), this.destinationPath('settings.gradle'), context);
   }
 
   end() {
