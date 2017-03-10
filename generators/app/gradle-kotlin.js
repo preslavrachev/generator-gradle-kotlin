@@ -158,9 +158,9 @@ class GradleKotlinGenerator extends YeomanGenerator {
 
   prompting() {
     console.log('Prompting Step');
-    console.log(Object.values(this.prompts));
-    this.prompt(Object.values(this.prompts))
-      .then(props => this.props = props);
+    return this.prompt(Object.values(this.prompts))
+      .then(props => { this.props = props; });
+  }
   }
 
   end() {
