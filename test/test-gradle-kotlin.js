@@ -12,16 +12,17 @@ describe('gradle-kotlin:app', () => {
 
   before(() => {
     return helpers.run(Generator)
-    .inTmpDir(dir => {
-      console.log(`Test Setup: Copying templates to ${dir}`)
-      fs.copySync(path.join(__dirname, '../generators/app/templates/'), path.join(dir, 'templates'));
-    })
-    .withOptions({
-      skipInstall: true
-    }).withPrompts({
-      gradleVersion: '2.7',
-      kotlinVersion: '1.1.0'
-    });
+      .inTmpDir(dir => {
+        console.log(`Test Setup: Copying templates to ${dir}`)
+        fs.copySync(path.join(__dirname, '../generators/app/templates/'), path.join(dir, 'templates'));
+      })
+      .withOptions({
+        skipInstall: true
+      })
+      .withPrompts({
+        gradleVersion: '2.7',
+        kotlinVersion: '1.1.0'
+      });
   });
 
   it('creates Gradle files', () => {

@@ -46,21 +46,6 @@ const MVNCNTRL_KOTLIN_SEARCH = 'http://search.maven.org/solrsearch/select?q=g:or
 // #     done = @async()
 // #     Promise.all([@_fetchGradleVersion(), @_fetchKotlinVersion(), @_getProjectName()]).then -> done()
 
-// #   prompting: ->
-// #     done = @async()
-// #     @prompt _.values(@prompts), (props) =>
-// #       @props = props
-// #       done()
-
-// #   writing:
-// #     app: ->
-// #       @fs.copy(@templatePath('gitignore'), @destinationPath('.gitignore'))
-// #       @fs.copy(@templatePath('gitkeep'), @destinationPath('src/main/kotlin/.gitkeep'))
-// #       @fs.copy(@templatePath('gitkeep'), @destinationPath('src/test/kotlin/.gitkeep'))
-// #       @template(@templatePath('build.gradle.ejs'), @destinationPath('build.gradle'))
-// #       @template(@templatePath('gradle.properties.ejs'), @destinationPath('gradle.properties'))
-// #       @template(@templatePath('settings.gradle.ejs'), @destinationPath('settings.gradle'))
-
 // #   install: ->
 // #     return if @gradleNotInstalled
 // #     done = @async()
