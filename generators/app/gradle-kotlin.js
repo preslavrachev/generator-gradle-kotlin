@@ -155,7 +155,7 @@ class GradleKotlinGenerator extends YeomanGenerator {
 
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('gitkeep'), this.destinationPath('src/main/kotlin/.gitkeep'));
-    this.fs.copy(this.templatePath('gitkeep'), this.destinationPath('src/main/kotlin/.gitkeep'));
+    this.fs.copy(this.templatePath('gitkeep'), this.destinationPath('src/test/kotlin/.gitkeep'));
     this.fs.copyTpl(this.templatePath('build.gradle.ejs'), this.destinationPath('build.gradle'), context);
     this.fs.copyTpl(this.templatePath('gradle.properties.ejs'), this.destinationPath('gradle.properties'), context);
     this.fs.copyTpl(this.templatePath('settings.gradle.ejs'), this.destinationPath('settings.gradle'), context);
