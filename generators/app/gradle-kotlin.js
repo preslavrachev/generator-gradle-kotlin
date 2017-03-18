@@ -82,6 +82,12 @@ class GradleKotlinGenerator extends YeomanGenerator {
       kotlinVersion: {
         name: 'kotlinVersion',
         message: 'Which Kotlin version does your project use?'
+      },
+      ideaPlugin: {
+        name: 'ideaPlugin',
+        type: 'confirm',
+        message: 'Would you like to use the IntelliJ Idea plugin?',
+        default: true
       }
     }
   }
@@ -150,7 +156,6 @@ class GradleKotlinGenerator extends YeomanGenerator {
 
   writing() {
     console.log('Writing Step');
-    
     let context = { props: this.props };
 
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
@@ -159,6 +164,26 @@ class GradleKotlinGenerator extends YeomanGenerator {
     this.fs.copyTpl(this.templatePath('build.gradle.ejs'), this.destinationPath('build.gradle'), context);
     this.fs.copyTpl(this.templatePath('gradle.properties.ejs'), this.destinationPath('gradle.properties'), context);
     this.fs.copyTpl(this.templatePath('settings.gradle.ejs'), this.destinationPath('settings.gradle'), context);
+  }
+
+  install() {
+    let tasks = ['build'];
+    if (this.props.ideaPlugin) {
+      tasks.unshift('idea');
+    }
+
+    return this._executeGradleCommand(['wrapper'])
+      .then(() => this._executeGradleCommand(tasks));
+  }
+
+  _executeGradleCommand(commandList) {
+    return new Promise((resolve, reject) => {
+      this.spawnCommand('gradle', commandList)
+        .on('exit', () => {
+          console.log(chalk.green(`Done executing gradle with the following commands: ${commandList}`));
+          resolve();
+        });
+    });
   }
 
   end() {
