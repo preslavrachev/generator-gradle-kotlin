@@ -2,6 +2,7 @@ sudo: false
 language: java
 jdk:
   - oraclejdk8
-node_js: "4.0"
-install: "npm install"
+env:
+  - NODE_VERSION=4.0
+install: "nvm use $NODE_VERSION && npm install"
 script: "npm test"
